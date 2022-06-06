@@ -51,5 +51,11 @@ namespace English_trainer
                 button1.Enabled = false;
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form form = new Settings();
+            form.Show();
+        }
     }
 }

@@ -48,6 +48,7 @@ namespace English_trainer
             this.button1.Size = new System.Drawing.Size(60, 60);
             this.button1.TabIndex = 0;
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
