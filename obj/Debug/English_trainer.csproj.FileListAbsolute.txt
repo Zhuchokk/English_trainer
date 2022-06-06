@@ -1,0 +1,13 @@
+D:\ПРОГРАММИРОВАНИЕ\C++,C#,C\English_trainer\bin\Debug\English_trainer.exe.config
+D:\ПРОГРАММИРОВАНИЕ\C++,C#,C\English_trainer\bin\Debug\English_trainer.exe
+D:\ПРОГРАММИРОВАНИЕ\C++,C#,C\English_trainer\bin\Debug\English_trainer.pdb
+D:\ПРОГРАММИРОВАНИЕ\C++,C#,C\English_trainer\bin\Debug\Newtonsoft.Json.dll
+D:\ПРОГРАММИРОВАНИЕ\C++,C#,C\English_trainer\bin\Debug\Newtonsoft.Json.xml
+D:\ПРОГРАММИРОВАНИЕ\C++,C#,C\English_trainer\obj\Debug\English_trainer.csproj.AssemblyReference.cache
+D:\ПРОГРАММИРОВАНИЕ\C++,C#,C\English_trainer\obj\Debug\English_trainer.MainForm.resources
+D:\ПРОГРАММИРОВАНИЕ\C++,C#,C\English_trainer\obj\Debug\English_trainer.Properties.Resources.resources
+D:\ПРОГРАММИРОВАНИЕ\C++,C#,C\English_trainer\obj\Debug\English_trainer.csproj.GenerateResource.cache
+D:\ПРОГРАММИРОВАНИЕ\C++,C#,C\English_trainer\obj\Debug\English_trainer.csproj.CoreCompileInputs.cache
+D:\ПРОГРАММИРОВАНИЕ\C++,C#,C\English_trainer\obj\Debug\English_trainer.csproj.CopyComplete
+D:\ПРОГРАММИРОВАНИЕ\C++,C#,C\English_trainer\obj\Debug\English_trainer.exe
+D:\ПРОГРАММИРОВАНИЕ\C++,C#,C\English_trainer\obj\Debug\English_trainer.pdb
