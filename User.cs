@@ -13,5 +13,6 @@ namespace English_trainer
         public int days;
         public string last;
         public int words;
+        public int last_number;
     }
 }
