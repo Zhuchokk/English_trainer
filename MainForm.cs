@@ -26,7 +26,8 @@ namespace English_trainer
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            Form form = new Trainer();
+            form.Show();
         }
 
         private void MainForm_Load(object sender, EventArgs e)

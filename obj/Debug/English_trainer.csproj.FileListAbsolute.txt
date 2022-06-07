@@ -12,3 +12,4 @@ D:\ПРОГРАММИРОВАНИЕ\C++,C#,C\English_trainer\obj\Debug\English_t
 D:\ПРОГРАММИРОВАНИЕ\C++,C#,C\English_trainer\obj\Debug\English_trainer.exe
 D:\ПРОГРАММИРОВАНИЕ\C++,C#,C\English_trainer\obj\Debug\English_trainer.pdb
 D:\ПРОГРАММИРОВАНИЕ\C++,C#,C\English_trainer\obj\Debug\English_trainer.Settings.resources
+D:\ПРОГРАММИРОВАНИЕ\C++,C#,C\English_trainer\obj\Debug\English_trainer.Trainer.resources
