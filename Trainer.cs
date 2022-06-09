@@ -7,6 +7,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using System.IO;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace English_trainer
 {
@@ -16,6 +17,8 @@ namespace English_trainer
         User userdata;
         UserSettings usersettings;
         string[] words;
+        string[,] tests;
+        int true_answers;
 
 
         public Trainer()
@@ -34,6 +37,9 @@ namespace English_trainer
             {
                 words = r.ReadToEnd().Split('\n');
             }
+
+            tests = new string[usersettings.words_qty, 2];
+
             InitializeComponent();
         }
 
@@ -136,19 +142,41 @@ namespace English_trainer
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string only_word = onlyword(words[userdata.last_number - 1]);
-
-            if (textBox1.Text.ToLower() == only_word)
+            if (usersettings.words_qty > 0)
             {
-                textBox1.Clear();
-                next_word();
-            }
-            else
-            {
-                MessageBox.Show("You should write a word: '" + only_word + "' in the text field. Then you can press 'Next' button");
-            }
+                usersettings.words_qty -= 1;
+                string only_word = onlyword(words[userdata.last_number - 1]);
 
-            
+                if (textBox1.Text.ToLower() == only_word)
+                {
+                    textBox1.Clear();
+                    next_word();
+                }
+                else
+                {
+                    MessageBox.Show("You should write a word: '" + only_word + "' in the text field. Then you can press 'Next' button");
+                }
+            }
+            else if (usersettings.words_qty == 0)
+            {
+                label1.Text = "word number: -";
+                label4.Text = "type: -";
+                label2.Text = "TESTS";
+                label3.Text = "Click the 'Next' button to start";
+                MessageBox.Show("Word CHECK!" + usersettings.tests_qty + "tests");
+            } else if(usersettings. tests_qty > 0)
+            {
+                if(label2.Text == "TESTS")
+                {
+                    label2.Text = tests[0, 1];
+                }
+                else
+                {
+
+                }
+            }
+            Application.Exit();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -157,6 +185,13 @@ namespace English_trainer
             synth.SelectVoice(usersettings.voice);
             synth.SetOutputToDefaultAudioDevice();
             synth.SpeakAsync(onlyword(words[userdata.last_number - 1]));
+            synth.Dispose();
+            GC.Collect();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Process translate = Process.Start(string.Format( "https://translate.google.com/?hl=ru&sl=en&tl=ru&text={0}&op=translate", onlyword(words[userdata.last_number - 1])));
         }
     }
 }
