@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
+using System.Speech.Synthesis;
 using System.Linq;
 using Newtonsoft.Json;
 using System.IO;
@@ -12,7 +12,9 @@ namespace English_trainer
 {
     public partial class Trainer : Form
     {
+        public SpeechSynthesizer synth;
         User userdata;
+        UserSettings usersettings;
         string[] words;
 
 
@@ -22,6 +24,11 @@ namespace English_trainer
             {
                 string json = r.ReadToEnd();
                 userdata = JsonConvert.DeserializeObject<User>(json);
+            }
+            using (StreamReader r = new StreamReader(Application.StartupPath + @"\settings.json"))
+            {
+                string json = r.ReadToEnd();
+                usersettings = JsonConvert.DeserializeObject<UserSettings>(json);
             }
             using (StreamReader r = new StreamReader(Application.StartupPath + @"\data.txt"))
             {
@@ -97,9 +104,9 @@ namespace English_trainer
             string tmp;
             if (!("0123456789".Contains(str[0])))
             {
-                if (str.Contains("("))
+                if (str.Substring(0, str.IndexOf('[')).Contains("("))
                 {
-                    tmp = str.Substring(0, str.IndexOf('(') - 2);
+                    tmp = str.Substring(0, str.IndexOf('(') - 1);
                 }
                 else
                 {
@@ -109,7 +116,7 @@ namespace English_trainer
             }
             else
             {
-                if (str.Contains("("))
+                if (str.Substring(0, str.IndexOf('[')).Contains("("))
                 {
                     tmp = str.Substring(str.IndexOf(" ") + 1, str.IndexOf('(') - str.IndexOf(" ") - 2);
                 }
@@ -131,7 +138,7 @@ namespace English_trainer
         {
             string only_word = onlyword(words[userdata.last_number - 1]);
 
-            if(textBox1.Text == only_word)
+            if (textBox1.Text.ToLower() == only_word)
             {
                 textBox1.Clear();
                 next_word();
@@ -142,6 +149,14 @@ namespace English_trainer
             }
 
             
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            synth = new SpeechSynthesizer();
+            synth.SelectVoice(usersettings.voice);
+            synth.SetOutputToDefaultAudioDevice();
+            synth.SpeakAsync(onlyword(words[userdata.last_number - 1]));
         }
     }
 }
