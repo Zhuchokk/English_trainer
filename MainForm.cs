@@ -36,7 +36,7 @@ namespace English_trainer
             label4.Text = "True answers: " + userdata.true_answer;
             label5.Text = "Days spent: " + userdata.days;
 
-            string words = Convert.ToString( userdata.words);
+            string words = Convert.ToString( 5000 - userdata.words);
             Console.WriteLine(words.Length);
             int l = words.Length;
             for (int i=0; i < 4 - l ; i++)
@@ -46,15 +46,15 @@ namespace English_trainer
             }
 
             label1.Text = words;
-            
-            if(DateTime.Now == DateTime.Parse(userdata.last))
+            if(DateTime.Parse(userdata.last).Date == DateTime.Now.Date)
             {
-                button1.Enabled = false;
+                button2.Enabled = false;
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
             Form form = new Settings();
             form.Show();
         }

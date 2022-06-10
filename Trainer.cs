@@ -196,6 +196,8 @@ namespace English_trainer
                     usersettings.tests_qty -= 1;
                     label3.Text = "";
                     textBox1.Clear();
+                    button1.Dispose();
+                    button3.Dispose();
                 }
                 else
                 {
@@ -204,7 +206,7 @@ namespace English_trainer
                         userdata.true_answer += 1;
                     } else
                     {
-                        MessageBox.Show("Wrong Answer, true answer is'" + tests[index, 0] + "'");
+                        MessageBox.Show("Wrong Answer, true answer is'" + tests[index - 1, 0] + "'");
                         userdata.wrong_answer += 1;
                     }
 
