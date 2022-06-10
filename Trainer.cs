@@ -18,7 +18,8 @@ namespace English_trainer
         UserSettings usersettings;
         string[] words;
         string[,] tests;
-        int true_answers;
+
+        int index = 0;
 
 
         public Trainer()
@@ -38,7 +39,7 @@ namespace English_trainer
                 words = r.ReadToEnd().Split('\n');
             }
 
-            tests = new string[usersettings.words_qty, 2];
+            tests = new string[usersettings.tests_qty + usersettings.words_qty, 2];
 
             InitializeComponent();
         }
@@ -64,7 +65,11 @@ namespace English_trainer
             
             string[] word_translate = spliter(words[userdata.last_number]);
             string num = only_number(words[userdata.last_number]);
-            
+
+            tests[index, 0] = onlyword(words[userdata.last_number]);
+            tests[index, 1] = only_rus(words[userdata.last_number]);
+            index += 1;
+
             label2.Text = word_translate[0];
             label3.Text = word_translate[1];
 
@@ -79,6 +84,12 @@ namespace English_trainer
                 label4.Text = "type: word variation";
             }
             userdata.last_number += 1;
+            
+        }
+
+        private string only_rus(string str)
+        {
+            return str.Substring(str.IndexOf(']') + 1);
         }
 
         private string only_number(string str)
@@ -137,6 +148,7 @@ namespace English_trainer
 
         private void Trainer_Load(object sender, EventArgs e)
         {
+            usersettings.words_qty -= 1;
             next_word();
         }
 
@@ -145,6 +157,7 @@ namespace English_trainer
             if (usersettings.words_qty > 0)
             {
                 usersettings.words_qty -= 1;
+                userdata.words += 1;
                 string only_word = onlyword(words[userdata.last_number - 1]);
 
                 if (textBox1.Text.ToLower() == only_word)
@@ -164,18 +177,60 @@ namespace English_trainer
                 label2.Text = "TESTS";
                 label3.Text = "Click the 'Next' button to start";
                 MessageBox.Show("Word CHECK!" + usersettings.tests_qty + "tests");
+                Random random = new Random();
+                for (int i=0; i< usersettings.tests_qty; i++)
+                {
+                    int tmp = random.Next(0, userdata.last_number);
+                    tests[index + i, 0] = onlyword(words[tmp]);
+                    tests[index + i, 1] = only_rus(words[tmp]);
+                }
+                
+                usersettings.words_qty -= 1;
+                
             } else if(usersettings. tests_qty > 0)
             {
                 if(label2.Text == "TESTS")
                 {
                     label2.Text = tests[0, 1];
+                    index = 1;
+                    usersettings.tests_qty -= 1;
+                    label3.Text = "";
+                    textBox1.Clear();
                 }
                 else
                 {
+                    if(textBox1.Text == tests[index - 1, 0]){
+                        MessageBox.Show("True Answer!");
+                        userdata.true_answer += 1;
+                    } else
+                    {
+                        MessageBox.Show("Wrong Answer, true answer is'" + tests[index, 0] + "'");
+                        userdata.wrong_answer += 1;
+                    }
 
+                    
+                    label2.Text = tests[index, 1];
+                    index += 1;
+
+                    
+                    usersettings.tests_qty -= 1;
+                    textBox1.Clear(); 
                 }
             }
-            Application.Exit();
+            else
+            {
+                userdata.days += 1;
+                userdata.last = DateTime.Now.ToShortDateString();
+
+                MessageBox.Show("You have completed the daily lesson! Have a nice day!");
+                using (StreamWriter w = new StreamWriter(Application.StartupPath + @"\userdata.json"))
+                {
+                    string json = JsonConvert.SerializeObject(userdata);
+                    w.Write(json);
+                } 
+                Application.Exit();
+            }
+            
 
         }
 
